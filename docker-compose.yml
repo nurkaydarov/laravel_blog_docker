@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./:/var/www/laravel_blog
+      - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8077:80"
+    depends_on:
+      - app
+    container_name: app_nginx
+  app:
+    build:
+      context: .
+      dockerfile: _docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/laravel_blog
+    container_name: app
